@@ -1,6 +1,6 @@
 import tkinter as tk
 
-# Define story states
+
 story = {
     "start": {
         "text": "You are in a dark forest. Do you want to go left or right?",
@@ -28,34 +28,34 @@ story = {
     }
 }
 
-# Create main window
+
 root = tk.Tk()
 root.title("Adventure Game")
 root.geometry("500x300")
 root.config(bg="#222")
 
-# Current state
+
 current_state = {"state": "start"}
 
-# Story text label
+
 story_text = tk.Label(root, text="", wraplength=450, justify="center",
                       fg="white", bg="#222", font=("Arial", 14))
 story_text.pack(pady=40)
 
-# Frame for buttons
+
 button_frame = tk.Frame(root, bg="#222")
 button_frame.pack()
 
-# Function to display story
+
 def display_story(state_key):
     state = story[state_key]
     story_text.config(text=state["text"])
 
-    # Clear previous buttons
+    
     for widget in button_frame.winfo_children():
         widget.destroy()
 
-    # If end state (no options), show restart button
+    
     if not state["options"]:
         end_label = tk.Label(button_frame, text="The End", fg="orange",
                              bg="#222", font=("Arial", 16, "bold"))
@@ -67,19 +67,19 @@ def display_story(state_key):
         restart_btn.pack(pady=5)
         return
 
-    # Create option buttons
+    
     for option_text, next_state in state["options"].items():
         btn = tk.Button(button_frame, text=option_text, width=20, height=2,
                         bg="#5AC85A", fg="black", font=("Arial", 12, "bold"),
                         command=lambda ns=next_state: update_story(ns))
         btn.pack(pady=5)
 
-# Update story function
+
 def update_story(next_state):
     current_state["state"] = next_state
     display_story(next_state)
 
-# Start the game
+
 display_story("start")
 
 root.mainloop()
